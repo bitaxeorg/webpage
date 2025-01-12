@@ -1,5 +1,6 @@
 'use client';
 
+import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -12,6 +13,23 @@ interface DropdownMenuTriggerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
+
+// Type guard functions
+const isDropdownMenuTrigger = (
+  child: React.ReactElement,
+): child is React.ReactElement<DropdownMenuTriggerProps> => {
+  return (
+    (child.type as React.ComponentType)?.displayName === 'DropdownMenuTrigger'
+  );
+};
+
+const isDropdownMenuContent = (
+  child: React.ReactElement,
+): child is React.ReactElement => {
+  return (
+    (child.type as React.ComponentType)?.displayName === 'DropdownMenuContent'
+  );
+};
 
 const DropdownMenu = ({ children }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -34,21 +52,19 @@ const DropdownMenu = ({ children }: DropdownMenuProps) => {
   return (
     <div ref={dropdownRef} className='relative inline-block'>
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          if (child.type === DropdownMenuTrigger) {
-            return React.cloneElement(
-              child as React.ReactElement<DropdownMenuTriggerProps>,
-              {
-                onClick: () => setIsOpen(!isOpen),
-                'aria-expanded': isOpen,
-              },
-            );
-          }
-          if (child.type === DropdownMenuContent) {
-            return isOpen ? child : null;
-          }
-          return child;
+        if (!React.isValidElement(child)) return child;
+
+        if (isDropdownMenuTrigger(child)) {
+          return React.cloneElement(child, {
+            onClick: () => setIsOpen(!isOpen),
+            'aria-expanded': isOpen,
+          });
         }
+
+        if (isDropdownMenuContent(child)) {
+          return isOpen ? child : null;
+        }
+
         return child;
       })}
     </div>
@@ -58,11 +74,11 @@ const DropdownMenu = ({ children }: DropdownMenuProps) => {
 const DropdownMenuTrigger = React.forwardRef<
   HTMLButtonElement,
   DropdownMenuTriggerProps
->(({ className, asChild, children, ...props }, ref) => {
-  const Comp = asChild ? 'div' : 'button';
+>(({ className, asChild = false, children, ...props }, ref) => {
+  const Comp = asChild ? Slot : 'button';
   return (
     <Comp
-      ref={ref}
+      ref={ref as React.Ref<HTMLButtonElement>}
       className={cn(
         'inline-flex items-center justify-center rounded-md text-sm font-medium',
         'focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2',
@@ -74,6 +90,7 @@ const DropdownMenuTrigger = React.forwardRef<
     </Comp>
   );
 });
+
 DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
 const DropdownMenuContent = React.forwardRef<
@@ -92,6 +109,7 @@ const DropdownMenuContent = React.forwardRef<
     {...props}
   />
 ));
+
 DropdownMenuContent.displayName = 'DropdownMenuContent';
 
 const DropdownMenuItem = React.forwardRef<
@@ -111,6 +129,7 @@ const DropdownMenuItem = React.forwardRef<
     {...props}
   />
 ));
+
 DropdownMenuItem.displayName = 'DropdownMenuItem';
 
 export {
