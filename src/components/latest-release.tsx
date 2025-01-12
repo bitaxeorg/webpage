@@ -88,8 +88,8 @@ export function LatestRelease() {
                       ),
                     }}
                   >
-                    {release.body.length > 500
-                      ? `${release.body.slice(0, 500)}...\n\n[Read more](${release.html_url})`
+                    {release.body.length > 400
+                      ? `${release.body.slice(0, 400)}...`
                       : release.body}
                   </ReactMarkdown>
                 </div>

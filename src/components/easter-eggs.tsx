@@ -107,10 +107,12 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
     }>
   >([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
+        setIsLoading(true);
         const { bitcoin } = mempoolJS();
         const {
           blocks: { getBlocks, getBlocksTipHeight },
@@ -137,6 +139,8 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
       } catch (error) {
         setError('Failed to fetch blockchain data');
         setBlocks([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -151,6 +155,14 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
     if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
     return `${Math.floor(seconds / 3600)}h ago`;
   };
+
+  if (isLoading) {
+    return (
+      <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
+        <div className='text-primary'>Loading blockchain data...</div>
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -184,15 +196,31 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
                   delay: index * 0.1,
                 }}
               >
-                <div>
-                  <h3 className='text-lg font-bold'>Block {block.number}</h3>
-                  <p className='text-sm'>Age: {block.age}</p>
-                  <p className='text-sm'>Size: {block.size}</p>
-                  <p className='text-sm'>Fees: {block.feeRange}</p>
-                  <p className='text-sm'>Pool: {block.pool}</p>
-                  <p className='text-sm'>Reward: {block.reward}</p>
+                <div className='space-y-2'>
+                  <h3 className='text-lg font-bold border-b border-primary-foreground/20 pb-1 mb-2'>
+                    Block {block.number} <span className='float-right'>₿</span>
+                  </h3>
+                  <div className='grid grid-cols-3 gap-x-2 gap-y-1.5 text-sm'>
+                    <span className='text-primary-foreground/70'>Age:</span>
+                    <span className='font-medium col-span-2'>{block.age}</span>
+
+                    <span className='text-primary-foreground/70'>Size:</span>
+                    <span className='font-medium col-span-2'>{block.size}</span>
+
+                    <span className='text-primary-foreground/70'>Fees:</span>
+                    <span className='font-medium col-span-2'>
+                      {block.feeRange}
+                    </span>
+
+                    <span className='text-primary-foreground/70'>Pool:</span>
+                    <span className='font-medium col-span-2'>{block.pool}</span>
+
+                    <span className='text-primary-foreground/70'>Reward:</span>
+                    <span className='font-medium col-span-2'>
+                      {block.reward}
+                    </span>
+                  </div>
                 </div>
-                <div className='text-2xl font-bold'>₿</div>
               </motion.div>
             ))}
           </div>

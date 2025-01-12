@@ -284,13 +284,15 @@ export default function Home() {
               Scan the QR code or click the button below to donate
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant='outline'
-                size='lg'
-                className='bg-primary text-background hover:bg-primary/80 hover:text-background'
-              >
-                Support Our Projects
-              </Button>
+              <a href='https://getalby.com/p/osmu' target='_blank'>
+                <Button
+                  variant='outline'
+                  size='lg'
+                  className='bg-primary text-background hover:bg-primary/80 hover:text-background'
+                >
+                  Donate
+                </Button>
+              </a>
             </motion.div>
           </motion.div>
         </motion.div>
