@@ -36,10 +36,13 @@ const DropdownMenu = ({ children }: DropdownMenuProps) => {
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           if (child.type === DropdownMenuTrigger) {
-            return React.cloneElement(child, {
-              onClick: () => setIsOpen(!isOpen),
-              'aria-expanded': isOpen,
-            });
+            return React.cloneElement(
+              child as React.ReactElement<DropdownMenuTriggerProps>,
+              {
+                onClick: () => setIsOpen(!isOpen),
+                'aria-expanded': isOpen,
+              },
+            );
           }
           if (child.type === DropdownMenuContent) {
             return isOpen ? child : null;
