@@ -4,10 +4,14 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
 import { ThemeProvider } from '@/components/theme-provider';
-import { ThemeSelector } from '@/components/theme-selector';
 
 const EasterEggs = dynamic(
   () => import('@/components/easter-eggs').then((mod) => mod.EasterEggs),
+  { ssr: false },
+);
+
+const ThemeSelector = dynamic(
+  () => import('@/components/theme-selector').then((mod) => mod.ThemeSelector),
   { ssr: false },
 );
 
