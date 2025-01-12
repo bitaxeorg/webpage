@@ -38,7 +38,7 @@ export function ThemeSelector() {
             <span className='sr-only'>Change color theme</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='absolute right-0'>
+        <DropdownMenuContent className='absolute right-0' side='top'>
           {colors.map((c) => (
             <DropdownMenuItem
               key={c.name}

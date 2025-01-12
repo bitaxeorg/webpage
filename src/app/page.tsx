@@ -66,7 +66,7 @@ export default function Home() {
           animate='animate'
         >
           <motion.h1
-            className='text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent'
+            className='text-5xl md:text-7xl font-bold text-primary'
             variants={scaleIn}
           >
             Empowering Open Source Mining

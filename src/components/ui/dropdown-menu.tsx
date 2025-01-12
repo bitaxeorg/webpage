@@ -95,15 +95,21 @@ DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
 const DropdownMenuContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & {
+    side?: 'top' | 'bottom' | 'left' | 'right';
+  }
+>(({ className, side = 'bottom', ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
       'z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1',
-      'text-popover-foreground shadow-md animate-in data-[side=bottom]:slide-in-from-top-2',
-      'data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2',
-      'data-[side=top]:slide-in-from-bottom-2',
+      'text-popover-foreground shadow-md animate-in absolute',
+      {
+        'bottom-full mb-2 slide-in-from-bottom-2 translate-y-1': side === 'top',
+        'top-full mt-2 slide-in-from-top-2 -translate-y-1': side === 'bottom',
+        'right-full mr-2 slide-in-from-right-2 translate-x-1': side === 'left',
+        'left-full ml-2 slide-in-from-left-2 -translate-x-1': side === 'right',
+      },
       className,
     )}
     {...props}

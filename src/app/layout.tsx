@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import './globals.css';
 
@@ -11,7 +11,10 @@ const EasterEggs = dynamic(
   { ssr: false },
 );
 
-const inter = Inter({ subsets: ['latin'] });
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-jakarta',
+});
 
 const themeScript = `
   let theme = window.localStorage.getItem('theme')
@@ -39,7 +42,7 @@ export default function RootLayout({
         <link rel='manifest' href='/favicon/site.webmanifest' />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className={inter.className}>
+      <body className={jakarta.className}>
         <ThemeProvider>
           <div className='min-h-screen bg-background text-foreground relative'>
             <div
