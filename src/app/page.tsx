@@ -12,6 +12,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useRef } from 'react';
 
 import { AboutSection } from '@/components/about-section';
+import { LatestRelease } from '@/components/latest-release';
 import Nav from '@/components/nav';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -121,7 +122,7 @@ export default function Home() {
             <motion.img
               src={bitAxeSchematic.src}
               alt='Featured Project Screenshot'
-              className='rounded-lg shadow-xl max-h-[500px] ml-auto'
+              className='rounded-lg shadow-xl max-h-[500px] ml-auto w-full'
               variants={slideIn('left')}
               whileHover={{
                 scale: 1.05,
@@ -243,28 +244,9 @@ export default function Home() {
             className='text-4xl font-bold text-center mb-12'
             variants={slideIn('up')}
           >
-            Latest Updates
+            Latest Bitaxe Updates
           </motion.h2>
-          <motion.div
-            className='max-w-2xl mx-auto'
-            variants={scaleIn}
-            whileHover={{ scale: 1.02 }}
-          >
-            <Card className='bg-background border-primary/20'>
-              <CardHeader>
-                <CardTitle className='text-primary'>
-                  v2.4.5 - Jan 7, 2025
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className='text-muted-foreground mb-4'>
-                  CRITICAL FIX on devices without PSRAM module - Allow device to
-                  start without SPIRAM
-                </p>
-                <Button variant='outline'>View Release</Button>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <LatestRelease />
         </div>
       </motion.section>
 
