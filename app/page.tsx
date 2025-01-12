@@ -12,6 +12,16 @@ export default function UnderDevelopment() {
           Stay tuned for updates on our progress and upcoming features!
         </p>
       </div>
+      <div className="flex flex-col items-center text-center">
+      <h3 className="text-xl font-semibold mb-4">Support Our Development</h3>
+      <img 
+          src="/osmu.svg" 
+          alt="osmu@getalby.com"
+          width={200}
+          height={200}
+          className="invert brightness-0"
+        />
+      </div>
       <footer className="mt-16 text-sm text-gray-400">
         © {new Date().getFullYear()} Open Source Miners United. All rights reserved.
       </footer>
