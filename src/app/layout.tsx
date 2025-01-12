@@ -34,6 +34,9 @@ export default function RootLayout({
   return (
     <html lang='en' className='scroll-smooth' suppressHydrationWarning>
       <head>
+        <link rel='icon' href='/favicon.ico' sizes='any' />
+        <link rel='icon' href='/svg/favicon.svg' type='image/svg+xml' />
+        <link rel='manifest' href='/favicon/site.webmanifest' />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className={inter.className}>
