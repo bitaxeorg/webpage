@@ -1,10 +1,11 @@
 'use client';
 
+import mempoolJS from '@mempool/mempool.js';
 import { motion, useAnimation } from 'framer-motion';
 import { Bitcoin } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const matrixCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$₿';
+const matrixCharacters = '₿ABCDEFGHIJKLMNO₿PQRSTUVWXYZ₿';
 
 const MatrixRain = () => {
   const columns = Math.floor(window.innerWidth / 20); // Adjust based on character width
@@ -30,14 +31,13 @@ const MatrixRain = () => {
     const interval = setInterval(() => {
       setCharacters((prev) =>
         prev.map((column) =>
-          column.map(() =>
-            Math.random() < 0.02 // 2% chance to change character
-              ? matrixCharacters[
-                  Math.floor(Math.random() * matrixCharacters.length)
-                ]
-              : matrixCharacters[
-                  Math.floor(Math.random() * matrixCharacters.length)
-                ],
+          column.map(
+            (char) =>
+              Math.random() < 0.02 // 2% chance to change character
+                ? matrixCharacters[
+                    Math.floor(Math.random() * matrixCharacters.length)
+                  ]
+                : char, // Keep existing character if not changing
           ),
         ),
       );
@@ -56,14 +56,15 @@ const MatrixRain = () => {
             left: `${i * 20}px`,
             width: '20px',
             textAlign: 'center',
+            top: -600,
           }}
-          initial={{ y: -800 }}
           animate={{
-            y: window.innerHeight,
+            y: [0, window.innerHeight + 600],
             transition: {
-              duration: Math.random() * 2 + 2,
+              duration: Math.random() * 4 + 6, // Random duration between 6-10 seconds
               repeat: Infinity,
               ease: 'linear',
+              delay: Math.random() * 2, // Random initial delay between 0-2 seconds
             },
           }}
         >
@@ -92,13 +93,65 @@ const MatrixRain = () => {
 };
 
 const BlockchainVisualization = () => {
-  const blocks = [
-    { number: 1, time: '10:00 AM', age: '5 min ago', size: '1.2 MB' },
-    { number: 2, time: '10:01 AM', age: '4 min ago', size: '0.8 MB' },
-    { number: 3, time: '10:02 AM', age: '3 min ago', size: '1.5 MB' },
-    { number: 4, time: '10:03 AM', age: '2 min ago', size: '1.1 MB' },
-    { number: 5, time: '10:04 AM', age: '1 min ago', size: '0.9 MB' },
-  ];
+  const [blocks, setBlocks] = useState<
+    Array<{
+      number: number;
+      time: string;
+      age: string;
+      size: string;
+    }>
+  >([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchBlocks = async () => {
+      try {
+        const { bitcoin } = mempoolJS();
+        const {
+          blocks: { getBlocks, getBlocksTipHeight },
+        } = bitcoin;
+
+        // Get the latest block height
+        const tipHeight = await getBlocksTipHeight();
+
+        // Fetch blocks
+        const latestBlocks = await getBlocks({ start_height: tipHeight });
+
+        // Format the blocks
+        const formattedBlocks = latestBlocks.slice(0, 5).map((block) => ({
+          number: block.height,
+          time: new Date(block.timestamp * 1000).toLocaleTimeString(),
+          age: getRelativeTime(block.timestamp * 1000),
+          size: `${(block.size / 1000000).toFixed(1)} MB`,
+        }));
+
+        setError(null);
+        setBlocks(formattedBlocks);
+      } catch (error) {
+        setError('Failed to fetch blockchain data');
+        setBlocks([]);
+      }
+    };
+
+    fetchBlocks();
+  }, []);
+
+  // Helper function to format relative time
+  const getRelativeTime = (timestamp: number) => {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+
+    if (seconds < 60) return `${seconds}s ago`;
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    return `${Math.floor(seconds / 3600)}h ago`;
+  };
+
+  if (error) {
+    return (
+      <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
+        <div className='text-destructive'>{error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
@@ -192,23 +245,28 @@ export function EasterEggs() {
   const [showMatrixRain, setShowMatrixRain] = useState(false);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'b') {
         setShowBitcoin(true);
-        setTimeout(() => setShowBitcoin(false), 4000);
+        timeoutId = setTimeout(() => setShowBitcoin(false), 4000);
       }
       if (event.key === 'c') {
         setShowBlockchain(true);
-        setTimeout(() => setShowBlockchain(false), 5000);
+        timeoutId = setTimeout(() => setShowBlockchain(false), 10000);
       }
       if (event.key === 'm') {
         setShowMatrixRain(true);
-        setTimeout(() => setShowMatrixRain(false), 5000);
+        timeoutId = setTimeout(() => setShowMatrixRain(false), 5000);
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
