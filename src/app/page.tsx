@@ -23,6 +23,8 @@ import {
   staggerContainer,
 } from '@/utils/animations';
 
+import bitAxeSchematic from '/public/images/bitaxe-render-and-schematic.png';
+
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const springScroll = useSpring(scrollYProgress, {
@@ -117,9 +119,9 @@ export default function Home() {
           </motion.h2>
           <div className='grid md:grid-cols-2 gap-8 items-center'>
             <motion.img
-              src='/placeholder.svg?height=400&width=600'
+              src={bitAxeSchematic.src}
               alt='Featured Project Screenshot'
-              className='rounded-lg shadow-xl'
+              className='rounded-lg shadow-xl max-h-[500px] ml-auto'
               variants={slideIn('left')}
               whileHover={{
                 scale: 1.05,
@@ -128,7 +130,7 @@ export default function Home() {
               }}
             />
             <motion.div className='space-y-6' variants={slideIn('right')}>
-              <h3 className='text-2xl font-bold text-primary'>Bitaxe</h3>
+              <h3 className='text-3xl font-bold text-primary'>Bitaxe</h3>
               <p className='text-muted-foreground'>
                 Our flagship open-source project for Bitcoin Home Mining.
               </p>
@@ -176,19 +178,20 @@ export default function Home() {
             {[
               {
                 title: 'Bitaxe Gamma',
-                description: 'The newest Bitaxe with an avg. of 1.2Th/s',
-                github: 'https://github.com/bitaxe/bitaxe-gamma',
+                description: 'The newest Bitaxe with an average of 1.2Th/s',
+                github: 'https://github.com/bitaxeorg/bitaxeGamma',
               },
               {
                 title: 'Bitaxe Web Flasher',
                 description:
                   'The easiest solution to flash your Bitaxe directly from your browser!',
-                github: 'https://github.com/bitaxe/web-flasher',
+                github: 'https://github.com/bitaxeorg/bitaxe-web-flasher',
               },
               {
                 title: 'NerdQAxe++',
-                description: '4 BM1370 Chips on a single board avg. 5Th/s',
-                github: 'https://github.com/nerdqaxe/nerdqaxe-plus-plus',
+                description:
+                  '4 BM1370 Chips on a single board with an average of 5Th/s',
+                github: 'https://github.com/shufps/qaxe',
               },
             ].map((project, index) => (
               <motion.div
@@ -200,25 +203,26 @@ export default function Home() {
                   transition: { duration: 0.2 },
                 }}
               >
-                <Card className='bg-secondary border-primary/20 hover:border-primary transition-colors'>
-                  <CardHeader>
-                    <CardTitle className='text-primary flex items-center justify-between'>
-                      {project.title}
-                      <a
-                        href={project.github}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Github className='w-6 h-6 text-primary hover:text-primary/80' />
-                      </a>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className='text-muted-foreground'>
-                      {project.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                <a
+                  href={project.github}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Card className='bg-secondary border-primary/20 hover:border-primary transition-colors'>
+                    <CardHeader>
+                      <CardTitle className='text-primary flex items-center justify-between'>
+                        {project.title}
+
+                        <Github className='w-6 h-6 text-primary' />
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className='text-muted-foreground'>
+                        {project.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </a>
               </motion.div>
             ))}
           </motion.div>
@@ -253,7 +257,7 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className='text-muted-foreground'>
+                <p className='text-muted-foreground mb-4'>
                   CRITICAL FIX on devices without PSRAM module - Allow device to
                   start without SPIRAM
                 </p>
@@ -292,6 +296,7 @@ export default function Home() {
               size={200}
               level='H'
               includeMargin={true}
+              className='rounded-lg'
             />
             <p className='text-lg mb-4'>
               Scan the QR code or click the button below to donate

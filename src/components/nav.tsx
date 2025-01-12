@@ -5,7 +5,7 @@ import { FileText, Folder, Home, Info } from 'lucide-react';
 
 export default function Nav() {
   const navItems = [
-    { id: 'hero', label: 'Home', icon: Home },
+    { id: 'top', label: 'Home', icon: Home },
     { id: 'about', label: 'About', icon: Info },
     { id: 'projects', label: 'Projects', icon: Folder },
     { id: 'updates', label: 'Updates', icon: FileText },
@@ -16,7 +16,11 @@ export default function Nav() {
     id: string,
   ) => {
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (

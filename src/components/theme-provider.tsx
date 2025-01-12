@@ -23,7 +23,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({
   children,
   defaultTheme,
-  defaultColor = 'yellow',
+  defaultColor = 'green',
 }: ThemeProviderProps) {
   // Initialize theme from localStorage or system preference
   const [theme, setTheme] = useState<Theme>(() => {
@@ -111,6 +111,6 @@ function getColorValue(color: Color): string {
     case 'purple':
       return '269 80% 60%';
     default:
-      return '47 95% 50%';
+      return '142 71% 45%';
   }
 }
