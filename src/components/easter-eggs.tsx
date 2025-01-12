@@ -7,30 +7,83 @@ import { useEffect, useState } from 'react';
 const matrixCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$₿';
 
 const MatrixRain = () => {
+  const columns = Math.floor(window.innerWidth / 20); // Adjust based on character width
+  const [characters, setCharacters] = useState<string[][]>([]);
+
+  useEffect(() => {
+    // Initialize columns with random characters
+    const initialChars = Array(columns)
+      .fill(0)
+      .map(() =>
+        Array(30)
+          .fill(0)
+          .map(
+            () =>
+              matrixCharacters[
+                Math.floor(Math.random() * matrixCharacters.length)
+              ],
+          ),
+      );
+    setCharacters(initialChars);
+
+    // Periodically update random characters
+    const interval = setInterval(() => {
+      setCharacters((prev) =>
+        prev.map((column) =>
+          column.map(() =>
+            Math.random() < 0.02 // 2% chance to change character
+              ? matrixCharacters[
+                  Math.floor(Math.random() * matrixCharacters.length)
+                ]
+              : matrixCharacters[
+                  Math.floor(Math.random() * matrixCharacters.length)
+                ],
+          ),
+        ),
+      );
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [columns]);
+
   return (
-    <div className='fixed inset-0 pointer-events-none z-50'>
-      {[...Array(20)].map((_, i) => (
+    <div className='fixed inset-0 pointer-events-none z-50 overflow-hidden bg-black/90'>
+      {characters.map((column, i) => (
         <motion.div
           key={i}
-          className='absolute text-primary text-opacity-50 text-sm'
-          initial={{ y: -100, x: Math.random() * window.innerWidth }}
+          className='absolute text-primary font-matrix text-opacity-90 text-xl select-none'
+          style={{
+            left: `${i * 20}px`,
+            width: '20px',
+            textAlign: 'center',
+          }}
+          initial={{ y: -800 }}
           animate={{
-            y: window.innerHeight + 100,
+            y: window.innerHeight,
             transition: {
-              duration: Math.random() * 5 + 5,
+              duration: Math.random() * 2 + 2,
               repeat: Infinity,
               ease: 'linear',
             },
           }}
         >
-          {[...Array(20)].map((_, j) => (
-            <div key={j}>
-              {
-                matrixCharacters[
-                  Math.floor(Math.random() * matrixCharacters.length)
-                ]
-              }
-            </div>
+          {column.map((char, j) => (
+            <motion.div
+              key={j}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0.5] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: j * 0.1,
+              }}
+              style={{
+                textShadow: '0 0 8px #22ff88',
+                opacity: 1 - j * 0.1, // Fade out towards the bottom
+              }}
+            >
+              {char}
+            </motion.div>
           ))}
         </motion.div>
       ))}
@@ -77,17 +130,72 @@ const BlockchainVisualization = () => {
   );
 };
 
+const BitcoinVisualization = () => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start({
+      scale: [1, 1.5, 1],
+      rotate: [0, 720, 0],
+      transition: {
+        duration: 2,
+        ease: 'easeInOut',
+        times: [0, 0.5, 1],
+      },
+    });
+  }, [controls]);
+
+  return (
+    <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
+      <motion.div
+        className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          y: [0, -20, 0],
+        }}
+        transition={{
+          y: {
+            duration: 1,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: 'easeInOut',
+          },
+        }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div animate={controls} className='relative'>
+          <motion.div
+            className='absolute inset-0 text-primary/50 blur-xl'
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 1,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            <Bitcoin size={100} />
+          </motion.div>
+          <Bitcoin size={100} className='text-primary relative' />
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
+
 export function EasterEggs() {
   const [showBitcoin, setShowBitcoin] = useState(false);
   const [showBlockchain, setShowBlockchain] = useState(false);
   const [showMatrixRain, setShowMatrixRain] = useState(false);
-  const controls = useAnimation();
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'b') {
         setShowBitcoin(true);
-        setTimeout(() => setShowBitcoin(false), 3000);
+        setTimeout(() => setShowBitcoin(false), 4000);
       }
       if (event.key === 'c') {
         setShowBlockchain(true);
@@ -103,30 +211,9 @@ export function EasterEggs() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, []);
 
-  useEffect(() => {
-    if (showBitcoin) {
-      controls.start({
-        scale: [1, 1.2, 1],
-        rotate: [0, 360, 0],
-        transition: { duration: 0.5 },
-      });
-    }
-  }, [showBitcoin, controls]);
-
   return (
     <>
-      {showBitcoin && (
-        <motion.div
-          className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50'
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div animate={controls}>
-            <Bitcoin size={100} className='text-primary' />
-          </motion.div>
-        </motion.div>
-      )}
+      {showBitcoin && <BitcoinVisualization />}
       {showBlockchain && <BlockchainVisualization />}
       {showMatrixRain && <MatrixRain />}
     </>
