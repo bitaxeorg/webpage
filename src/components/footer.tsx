@@ -5,6 +5,7 @@ export function Footer() {
         © {new Date().getFullYear()} Open Source Miners United. All rights
         reserved.
       </p>
+      <p>Maintained by WantClue and MrV</p>
     </footer>
   );
 }
