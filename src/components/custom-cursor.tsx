@@ -13,8 +13,8 @@ export function CustomCursor() {
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16);
-      cursorY.set(e.clientY - 16);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -59,7 +59,11 @@ export function CustomCursor() {
         scale: scale,
       }}
     >
-      <div className='relative flex items-center justify-center'>
+      <div
+        className='relative flex items-center justify-center'
+        style={{ transform: 'translate(-50%, -50%)' }}
+      >
+        <div className='absolute h-48 w-48 rounded-full bg-primary/20 blur-xl' />
         <div className='h-8 w-8 rounded-full border-2 border-primary opacity-70' />
         <div className='absolute h-2 w-2 rounded-full bg-primary' />
       </div>
