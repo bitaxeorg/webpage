@@ -44,7 +44,10 @@ const MatrixRain = ({ onClose }: { onClose: () => void }) => {
   }, [columns]);
 
   return (
-    <div className='fixed inset-0 pointer-events-none z-50 overflow-hidden bg-black/90'>
+    <div
+      className='fixed inset-0 z-50 overflow-hidden bg-black/90'
+      onClick={onClose}
+    >
       <button
         onClick={onClose}
         className='absolute top-4 right-4 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 pointer-events-auto'
@@ -158,7 +161,10 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
 
   if (isLoading) {
     return (
-      <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
+      <div
+        className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'
+        onClick={onClose}
+      >
         <div className='text-primary'>Loading blockchain data...</div>
       </div>
     );
@@ -166,15 +172,26 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
 
   if (error) {
     return (
-      <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
-        <div className='text-destructive'>{error}</div>
+      <div
+        className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'
+        onClick={onClose}
+      >
+        <div className='text-destructive' onClick={(e) => e.stopPropagation()}>
+          {error}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'>
-      <div className='relative max-w-full px-4'>
+    <div
+      className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'
+      onClick={onClose}
+    >
+      <div
+        className='relative max-w-full px-4'
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
           className='absolute -top-8 right-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90'
@@ -311,7 +328,10 @@ const GenesisBlock = ({ onClose }: { onClose: () => void }) => {
   }, []);
 
   return (
-    <div className='fixed inset-0 pointer-events-none z-50 overflow-hidden bg-black/90'>
+    <div
+      className='fixed inset-0 z-50 overflow-hidden bg-black/90'
+      onClick={onClose}
+    >
       <button
         onClick={onClose}
         className='absolute top-4 right-4 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 pointer-events-auto'
