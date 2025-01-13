@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { scaleIn } from '@/utils/animations';
+import { scaleIn, slideIn } from '@/utils/animations';
 
 interface Release {
   tag_name: string;
@@ -50,62 +50,69 @@ export function LatestRelease() {
   }
 
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mx-auto'>
-      {releases.map((release) => {
-        const releaseDate = new Date(release.published_at).toLocaleDateString(
-          'en-US',
-          {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          },
-        );
+    <div className='container mx-auto px-4' id='updates'>
+      <motion.h2
+        className='text-4xl font-bold mb-12 text-center'
+        variants={slideIn('up')}
+      >
+        Updates
+      </motion.h2>
+      <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 mx-auto'>
+        {releases.map((release) => {
+          const releaseDate = new Date(release.published_at).toLocaleDateString(
+            'en-US',
+            {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            },
+          );
 
-        return (
-          <motion.div
-            id='updates'
-            key={release.tag_name}
-            variants={scaleIn}
-            initial='initial'
-            animate='animate'
-            whileHover={{ scale: 1.02 }}
-            viewport={{ once: true }}
-          >
-            <Card className='bg-secondary border-primary/20 h-full'>
-              <CardHeader>
-                <CardTitle className='text-primary'>
-                  {release.tag_name} - {releaseDate}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className='text-muted-foreground mb-4 prose prose-invert max-w-none'>
-                  <ReactMarkdown
-                    components={{
-                      ul: ({ children }) => (
-                        <ul className='list-disc pl-4'>{children}</ul>
-                      ),
-                      li: ({ children }) => (
-                        <li className='mb-1'>{children}</li>
-                      ),
-                    }}
+          return (
+            <motion.div
+              key={release.tag_name}
+              variants={scaleIn}
+              initial='initial'
+              animate='animate'
+              whileHover={{ scale: 1.02 }}
+              viewport={{ once: true }}
+            >
+              <Card className='bg-secondary border-primary/20 h-full'>
+                <CardHeader>
+                  <CardTitle className='text-primary'>
+                    {release.tag_name} - {releaseDate}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className='text-muted-foreground mb-4 prose prose-invert max-w-none'>
+                    <ReactMarkdown
+                      components={{
+                        ul: ({ children }) => (
+                          <ul className='list-disc pl-4'>{children}</ul>
+                        ),
+                        li: ({ children }) => (
+                          <li className='mb-1'>{children}</li>
+                        ),
+                      }}
+                    >
+                      {release.body.length > 400
+                        ? `${release.body.slice(0, 400)}...`
+                        : release.body}
+                    </ReactMarkdown>
+                  </div>
+                  <a
+                    href={release.html_url}
+                    target='_blank'
+                    rel='noopener noreferrer'
                   >
-                    {release.body.length > 400
-                      ? `${release.body.slice(0, 400)}...`
-                      : release.body}
-                  </ReactMarkdown>
-                </div>
-                <a
-                  href={release.html_url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button variant='outline'>View Release</Button>
-                </a>
-              </CardContent>
-            </Card>
-          </motion.div>
-        );
-      })}
+                    <Button variant='outline'>View Release</Button>
+                  </a>
+                </CardContent>
+              </Card>
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 }
