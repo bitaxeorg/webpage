@@ -20,6 +20,11 @@ interface Transaction {
     scriptpubkey_address: string;
     value: number;
   }>;
+  vin: Array<{
+    prevout: {
+      scriptpubkey_address: string;
+    };
+  }>;
   status: {
     confirmed: boolean;
     block_time: number;
@@ -29,7 +34,7 @@ interface Transaction {
 export function DonationsSection() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const bitcoinAddress = 'bc1q0k2wu6wn276fccpjemvkj889q4g8eltwz2kjtc';
+  const bitcoinAddress = 'bc1qfc5fgpy96z0q6ltvh99pcujec9mwzugv3zcste';
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -38,10 +43,13 @@ export function DonationsSection() {
       } = mempoolJS();
 
       try {
-        const addressTxs = await addresses.getAddressTxs({
+        const addressTxs = await addresses.getAddressTxsChain({
           address: bitcoinAddress,
         });
-        setTransactions(addressTxs.slice(0, 5));
+        const sortedTxs = addressTxs
+          .sort((a, b) => b.status.block_time - a.status.block_time)
+          .slice(0, 5);
+        setTransactions(sortedTxs);
         setError(null); // Clear any previous errors
       } catch (error) {
         setError('Failed to fetch recent transactions');
@@ -110,20 +118,32 @@ export function DonationsSection() {
 
                 return (
                   donation && (
-                    <div
+                    <a
+                      href={`https://mempool.space/tx/${tx.txid}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='block hover:bg-secondary/20 transition-colors'
                       key={tx.txid}
-                      className='bg-secondary/10 rounded-lg p-4 flex justify-between'
                     >
-                      <span className='truncate'>
-                        {tx.txid.substring(0, 8)}...
-                      </span>
-                      <span className='font-mono'>
-                        {(donation.value / 100000000).toFixed(8)} BTC
-                      </span>
-                      <span className='text-sm'>
-                        {tx.status.confirmed ? 'Confirmed' : 'Pending'}
-                      </span>
-                    </div>
+                      <div className='bg-secondary/10 rounded-lg p-4 flex justify-between items-center'>
+                        <div className='flex flex-col text-left self-start'>
+                          <span className='truncate'>
+                            From:{' '}
+                            {`${tx.vin[0].prevout.scriptpubkey_address.slice(0, 6)}...${tx.vin[0].prevout.scriptpubkey_address.slice(-6)}`}
+                          </span>
+                        </div>
+                        <div className='flex flex-col items-end'>
+                          <span className='font-mono'>
+                            {(donation.value / 100000000).toFixed(8)} BTC
+                          </span>
+                          <span className='text-sm text-muted-foreground'>
+                            {new Date(
+                              tx.status.block_time * 1000,
+                            ).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                   )
                 );
               })
