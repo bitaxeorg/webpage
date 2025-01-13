@@ -1,0 +1,10 @@
+export function Footer() {
+  return (
+    <footer className='w-full py-6 text-center text-sm text-muted-foreground'>
+      <p>
+        © {new Date().getFullYear()} Open Source Miners United. All rights
+        reserved.
+      </p>
+    </footer>
+  );
+}

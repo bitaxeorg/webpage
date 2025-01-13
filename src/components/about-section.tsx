@@ -6,7 +6,7 @@ export function AboutSection() {
   return (
     <motion.section
       id='about'
-      className='py-20'
+      className='py-20 min-h-screen'
       variants={fadeInUp}
       initial='initial'
       whileInView='animate'

@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import './globals.css';
 
+import { Footer } from '@/components/footer';
 import { ThemeProvider } from '@/components/theme-provider';
 
 const EasterEggs = dynamic(
@@ -56,7 +57,10 @@ export default function RootLayout({
                 backgroundSize: '20px 20px',
               }}
             />
-            <div className='relative z-10'>{children}</div>
+            <div className='relative z-10'>
+              {children}
+              <Footer />
+            </div>
             <ThemeSelector />
             <EasterEggs />
           </div>
