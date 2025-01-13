@@ -64,7 +64,7 @@
     @apply bg-background text-foreground;
   }
 
-  /* Add these utility classes for primary color */
+  /* utility classes for primary color */
   .bg-primary {
     background-color: hsl(var(--primary));
   }
@@ -102,7 +102,6 @@ body {
   background: hsl(var(--primary) / 0.8);
 }
 
-/* Add after your existing styles */
 * {
   cursor: none !important;
 }
