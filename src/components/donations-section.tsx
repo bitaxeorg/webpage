@@ -103,7 +103,10 @@ export function DonationsSection() {
           </motion.div>
         </motion.div>
 
-        <motion.div className='mt-8 max-w-md mx-auto' variants={fadeInUp}>
+        <motion.div
+          className='mt-8 max-w-md mx-auto bg-secondary/50 rounded-lg p-4'
+          variants={fadeInUp}
+        >
           <h3 className='text-xl font-semibold mb-4'>Recent Donations</h3>
           <div className='space-y-2'>
             {error ? (

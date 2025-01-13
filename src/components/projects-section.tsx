@@ -62,7 +62,7 @@ export function ProjectsSection() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Card className='bg-secondary border-primary/20 hover:border-primary transition-colors'>
+                <Card className='bg-secondary/70 border-primary/20 hover:border-primary transition-colors'>
                   <CardHeader>
                     <CardTitle className='text-primary flex items-center justify-between'>
                       {project.title}

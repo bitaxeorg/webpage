@@ -77,7 +77,7 @@ export function LatestRelease() {
               whileHover={{ scale: 1.02 }}
               viewport={{ once: true }}
             >
-              <Card className='bg-secondary border-primary/20 h-full'>
+              <Card className='bg-secondary/70 border-primary/20 h-full'>
                 <CardHeader>
                   <CardTitle className='text-primary'>
                     {release.tag_name} - {releaseDate}

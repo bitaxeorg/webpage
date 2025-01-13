@@ -101,3 +101,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary) / 0.8);
 }
+
+/* Add after your existing styles */
+* {
+  cursor: none !important;
+}

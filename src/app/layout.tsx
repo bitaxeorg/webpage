@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import './globals.css';
 
+import { CustomCursor } from '@/components/custom-cursor';
 import { Footer } from '@/components/footer';
 import { ThemeProvider } from '@/components/theme-provider';
 
@@ -63,6 +64,7 @@ export default function RootLayout({
             </div>
             <ThemeSelector />
             <EasterEggs />
+            <CustomCursor />
           </div>
         </ThemeProvider>
       </body>
