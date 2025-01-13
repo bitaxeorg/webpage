@@ -7,10 +7,10 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
-import { QRCodeSVG } from 'qrcode.react';
 import { useRef } from 'react';
 
 import { AboutSection } from '@/components/about-section';
+import { DonationsSection } from '@/components/donations-section';
 import { LatestRelease } from '@/components/latest-release';
 import Nav from '@/components/nav';
 import { ProjectsSection } from '@/components/projects-section';
@@ -157,73 +157,9 @@ export default function Home() {
 
       <ProjectsSection />
 
-      {/* Updates Section */}
-      <motion.section
-        id='updates'
-        className='py-20 min-h-screen'
-        variants={fadeInUp}
-        initial='initial'
-        whileInView='animate'
-        viewport={{ once: true }}
-      >
-        <div className='container mx-auto px-4'>
-          <motion.h2
-            className='text-4xl font-bold text-center mb-12'
-            variants={slideIn('up')}
-          >
-            Latest Bitaxe Updates
-          </motion.h2>
-          <LatestRelease />
-        </div>
-      </motion.section>
+      <LatestRelease />
 
-      {/* Donate Section */}
-      <motion.section
-        id='donate'
-        className='py-20 min-h-screen'
-        variants={fadeInUp}
-        initial='initial'
-        whileInView='animate'
-        viewport={{ once: true }}
-      >
-        <motion.div
-          className='container mx-auto px-4 text-center'
-          variants={staggerContainer}
-        >
-          <motion.h2
-            className='text-4xl font-bold mb-6'
-            variants={slideIn('up')}
-          >
-            Like to donate?
-          </motion.h2>
-          <motion.div
-            className='flex flex-col items-center gap-6'
-            variants={scaleIn}
-          >
-            <QRCodeSVG
-              value='bitcoin:1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2'
-              size={200}
-              level='H'
-              includeMargin={true}
-              className='rounded-lg'
-            />
-            <p className='text-lg mb-4'>
-              Scan the QR code or click the button below to donate
-            </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a href='https://getalby.com/p/osmu' target='_blank'>
-                <Button
-                  variant='outline'
-                  size='lg'
-                  className='bg-primary text-background hover:bg-primary/80 hover:text-background'
-                >
-                  Donate
-                </Button>
-              </a>
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </motion.section>
+      <DonationsSection />
     </main>
   );
 }

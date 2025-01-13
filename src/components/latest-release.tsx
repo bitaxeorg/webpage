@@ -63,6 +63,7 @@ export function LatestRelease() {
 
         return (
           <motion.div
+            id='updates'
             key={release.tag_name}
             variants={scaleIn}
             initial='initial'
