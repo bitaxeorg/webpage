@@ -34,7 +34,8 @@ interface Transaction {
 export function DonationsSection() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const bitcoinAddress = 'bc1qfc5fgpy96z0q6ltvh99pcujec9mwzugv3zcste';
+  const bitcoinAddress =
+    'bc1qnp980s5fpp8l94p5cvttmtdqy8rvrq74qly2yrfmzkdsntqzlc5qkc4rkq';
 
   useEffect(() => {
     const fetchTransactions = async () => {
