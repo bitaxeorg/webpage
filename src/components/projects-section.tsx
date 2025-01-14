@@ -24,6 +24,22 @@ const projects = [
     description: '4 BM1370 Chips on a single board with an average of 5Th/s',
     github: 'https://github.com/shufps/qaxe',
   },
+  {
+    title: 'BitHalo',
+    description: 'The first accessory for your Bitaxe',
+    github: 'https://github.com/IamGPIO/BitHalo-201-204-Bitaxe',
+  },
+  {
+    title: 'AntSniffer',
+    description:
+      'Tap into the signals on an Antminer data cable for logic analyzers and other development purposes',
+    github: 'https://github.com/SirVapes/AntSniffer',
+  },
+  {
+    title: 'Public Pool',
+    description: 'A Nestjs and Typescript Bitcoin stratum mining server',
+    github: 'https://github.com/benjamin-wilson/public-pool',
+  },
 ];
 
 export function ProjectsSection() {
