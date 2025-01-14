@@ -82,7 +82,7 @@ export function DonationsSection() {
           variants={scaleIn}
         >
           <QRCodeSVG
-            value='bitcoin:1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2'
+            value='bitcoin:bc1qnp980s5fpp8l94p5cvttmtdqy8rvrq74qly2yrfmzkdsntqzlc5qkc4rkq'
             size={200}
             level='H'
             includeMargin={true}
