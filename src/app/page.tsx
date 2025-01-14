@@ -121,7 +121,7 @@ export default function Home() {
             <motion.img
               src={bitAxeSchematic.src}
               alt='Featured Project Screenshot'
-              className='rounded-lg shadow-xl max-h-[500px] ml-auto w-full'
+              className='rounded-lg max-h-[500px] ml-auto w-full'
               variants={slideIn('left')}
               whileHover={{
                 scale: 1.05,
