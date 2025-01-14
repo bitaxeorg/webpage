@@ -32,13 +32,8 @@ export function ThemeProvider({
       if (stored) return stored;
 
       if (defaultTheme) return defaultTheme;
-
-      // Check system preference
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
     }
-    return 'light';
+    return 'dark';
   });
 
   const [color, setColor] = useState<Color>(() => {
