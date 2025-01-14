@@ -57,7 +57,7 @@ export function LatestRelease() {
       >
         Updates
       </motion.h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 mx-auto'>
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mx-auto'>
         {releases.map((release) => {
           const releaseDate = new Date(release.published_at).toLocaleDateString(
             'en-US',
@@ -77,14 +77,14 @@ export function LatestRelease() {
               whileHover={{ scale: 1.02 }}
               viewport={{ once: true }}
             >
-              <Card className='bg-secondary/70 border-primary/20 h-full'>
+              <Card className='bg-secondary/70 border-primary/20 h-full flex flex-col'>
                 <CardHeader>
                   <CardTitle className='text-primary'>
                     {release.tag_name} - {releaseDate}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className='text-muted-foreground mb-4 prose prose-invert max-w-none'>
+                <CardContent className='flex flex-col flex-grow'>
+                  <div className='text-muted-foreground mb-4 prose prose-invert max-w-none flex-grow'>
                     <ReactMarkdown
                       components={{
                         ul: ({ children }) => (
@@ -100,13 +100,15 @@ export function LatestRelease() {
                         : release.body}
                     </ReactMarkdown>
                   </div>
-                  <a
-                    href={release.html_url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <Button variant='outline'>View Release</Button>
-                  </a>
+                  <div>
+                    <a
+                      href={release.html_url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <Button variant='outline'>View Release</Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
