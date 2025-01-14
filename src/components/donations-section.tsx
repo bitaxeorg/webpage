@@ -36,6 +36,7 @@ export function DonationsSection() {
   const [error, setError] = useState<string | null>(null);
   const bitcoinAddress =
     'bc1qnp980s5fpp8l94p5cvttmtdqy8rvrq74qly2yrfmzkdsntqzlc5qkc4rkq';
+  const bitcoinLightningAddress = 'osmu@getalby.com';
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -81,13 +82,28 @@ export function DonationsSection() {
           className='flex flex-col items-center gap-6'
           variants={scaleIn}
         >
-          <QRCodeSVG
-            value={`bitcoin:${bitcoinAddress}`}
-            size={200}
-            level='H'
-            includeMargin={true}
-            className='rounded-lg'
-          />
+          <div className='flex flex-col md:flex-row justify-center gap-32'>
+            <div className='flex flex-col items-center gap-4'>
+              <h2>On-Chain</h2>
+              <QRCodeSVG
+                value={`bitcoin:${bitcoinAddress}`}
+                size={200}
+                level='H'
+                includeMargin={true}
+                className='rounded-lg'
+              />
+            </div>
+            <div className='flex flex-col items-center gap-4'>
+              <h2>Lightning</h2>
+              <QRCodeSVG
+                value={`bitcoin:${bitcoinLightningAddress}`}
+                size={200}
+                level='H'
+                includeMargin={true}
+                className='rounded-lg'
+              />
+            </div>
+          </div>
           <p className='text-lg mb-4'>
             Scan the QR code or click the button below to donate
           </p>
