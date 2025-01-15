@@ -396,7 +396,7 @@ export function EasterEggs() {
       const touch = e.touches[0];
       // Check if touch is in bottom left corner (adjust size as needed)
       const isInTriggerArea =
-        touch.clientY > window.innerHeight - 50 && touch.clientX < 50;
+        touch.clientY > window.innerHeight - 100 && touch.clientX < 100;
 
       if (isInTriggerArea) {
         const now = Date.now();
