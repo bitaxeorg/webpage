@@ -127,11 +127,11 @@ export function DonationsSection() {
         </motion.div>
 
         <motion.div
-          className='mt-8 max-w-md mx-auto bg-secondary/50 rounded-lg p-4'
+          className='mt-8 max-w-md mx-auto bg-secondary/50 rounded-lg sm:p-4'
           variants={fadeInUp}
         >
           <h3 className='text-xl font-semibold mb-4'>Recent Donations</h3>
-          <div className='space-y-2'>
+          <div className='space-y-2 text-sm sm:text-base'>
             {error ? (
               <p className='text-destructive'>{error}</p>
             ) : transactions.length === 0 ? (
@@ -155,7 +155,7 @@ export function DonationsSection() {
                         <div className='flex flex-col text-left self-start'>
                           <span className='truncate'>
                             From:{' '}
-                            {`${tx.vin[0].prevout.scriptpubkey_address.slice(0, 6)}...${tx.vin[0].prevout.scriptpubkey_address.slice(-6)}`}
+                            {`${tx.vin[0].prevout.scriptpubkey_address.slice(0, 5)}...${tx.vin[0].prevout.scriptpubkey_address.slice(-5)}`}
                           </span>
                         </div>
                         <div className='flex flex-col items-end'>
