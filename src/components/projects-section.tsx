@@ -9,6 +9,11 @@ import { fadeInUp, slideIn, staggerContainer } from '@/utils/animations';
 
 const projects = [
   {
+    title: 'ESP-Miner',
+    description: 'The firmware for all Bitaxe',
+    github: 'https://github.com/skot/esp-miner',
+  },
+  {
     title: 'Bitaxe Gamma',
     description: 'The newest Bitaxe with an average of 1.2Th/s',
     github: 'https://github.com/bitaxeorg/bitaxeGamma',
