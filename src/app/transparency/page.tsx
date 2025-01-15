@@ -9,19 +9,12 @@ import {
 } from 'framer-motion';
 import { useRef } from 'react';
 
-import { AboutSection } from '@/components/about-section';
 import { DonationsSection } from '@/components/donations-section';
-import { LatestRelease } from '@/components/latest-release';
-import { ProjectsSection } from '@/components/projects-section';
-import { Button } from '@/components/ui/button';
 
-import {
-  fadeInUp,
-  scaleIn,
-  slideIn,
-  staggerContainer,
-} from '@/utils/animations';
+import { fadeInUp, scaleIn, staggerContainer } from '@/utils/animations';
 
+import { ProjectsSection } from './granted-projects-section';
+import { InfoSection } from './info-section';
 import Nav from './nav';
 
 export default function Home() {
@@ -70,62 +63,26 @@ export default function Home() {
             className='text-5xl md:text-7xl font-bold text-primary'
             variants={scaleIn}
           >
-            Empowering Open Source Mining
+            Transparency Open Source
           </motion.h1>
           <motion.p
             className='text-xl text-muted-foreground'
             variants={fadeInUp}
           >
-            Join our community of passionate miners and developers working
-            together to advance open source mining technologies.
+            Don't trust verify is not just a slogan it's an ethos.
           </motion.p>
           <motion.div
             variants={fadeInUp}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className='w-fit mx-auto'
-          >
-            <a href='#donate'>
-              <Button
-                variant='outline'
-                size='lg'
-                className='bg-primary text-background hover:bg-primary/80 hover:text-background'
-              >
-                Like to Donate and help us?
-              </Button>
-            </a>
-          </motion.div>
+          ></motion.div>
         </motion.div>
       </motion.section>
-
-      {/* Featured Project Section */}
-      <motion.section
-        id='featured'
-        className='py-20 min-h-screen'
-        variants={fadeInUp}
-        initial='initial'
-        whileInView='animate'
-        viewport={{ once: true }}
-      >
-        <motion.div
-          className='container mx-auto px-4'
-          variants={staggerContainer}
-        >
-          <motion.h2
-            className='text-4xl font-bold text-center mb-12'
-            variants={slideIn('up')}
-          >
-            Featured Project
-          </motion.h2>
-        </motion.div>
-      </motion.section>
-
-      <AboutSection />
 
       <ProjectsSection />
 
-      <LatestRelease />
-
+      <InfoSection />
       <DonationsSection />
     </main>
   );
