@@ -203,7 +203,7 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
             {blocks.map((block, index) => (
               <motion.div
                 key={block.number}
-                className='w-[160px] sm:w-48 shrink-0 bg-primary text-primary-foreground rounded-lg p-4 flex flex-col justify-between'
+                className='w-48 shrink-0 bg-primary text-primary-foreground rounded-lg p-4 flex flex-col justify-between'
                 initial={{ y: 50 * (index + 1), opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{
@@ -225,7 +225,7 @@ const BlockchainVisualization = ({ onClose }: { onClose: () => void }) => {
                     <span className='font-medium col-span-2'>{block.size}</span>
 
                     <span className='text-primary-foreground/70'>Fees:</span>
-                    <span className='font-medium col-span-2'>
+                    <span className='font-medium col-span-2 text-xs content-center'>
                       {block.feeRange}
                     </span>
 
@@ -338,12 +338,12 @@ const GenesisBlock = ({ onClose }: { onClose: () => void }) => {
       >
         <X size={16} />
       </button>
-      <div className='p-8 font-mono relative min-h-[350px]'>
-        <div className='space-y-1'>
+      <div className='p-4 sm:p-8 font-mono relative min-h-[350px] overflow-x-auto max-w-full'>
+        <div className='space-y-1 whitespace-nowrap text-[clamp(0.5rem,1.5vw,1rem)]'>
           {decodedLines.map((line, index) => (
             <motion.pre
               key={index}
-              className='font-mono text-primary relative h-6'
+              className='font-mono text-primary relative h-auto min-h-[1.5em]'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -355,7 +355,7 @@ const GenesisBlock = ({ onClose }: { onClose: () => void }) => {
         </div>
 
         <motion.div
-          className='text-center mt-5 text-xl'
+          className='text-center mt-5 text-[clamp(1rem,3vw,1.5rem)] text-primary'
           initial={{ opacity: 0 }}
           animate={{
             opacity:
