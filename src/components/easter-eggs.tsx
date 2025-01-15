@@ -48,12 +48,6 @@ const MatrixRain = ({ onClose }: { onClose: () => void }) => {
       className='fixed inset-0 z-50 overflow-hidden bg-black/90'
       onClick={onClose}
     >
-      <button
-        onClick={onClose}
-        className='absolute top-4 right-4 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 pointer-events-auto'
-      >
-        <X size={16} />
-      </button>
       {characters.map((column, i) => (
         <motion.div
           key={i}
@@ -332,13 +326,7 @@ const GenesisBlock = ({ onClose }: { onClose: () => void }) => {
       className='fixed inset-0 z-50 overflow-hidden bg-black/90'
       onClick={onClose}
     >
-      <button
-        onClick={onClose}
-        className='absolute top-4 right-4 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 pointer-events-auto'
-      >
-        <X size={16} />
-      </button>
-      <div className='p-4 sm:p-8 font-mono relative min-h-[350px] overflow-x-auto max-w-full'>
+      <div className='p-2 sm:p-8 font-mono relative min-h-[350px] overflow-x-auto max-w-full'>
         <div className='space-y-1 whitespace-nowrap text-[clamp(0.5rem,1.5vw,1rem)]'>
           {decodedLines.map((line, index) => (
             <motion.pre
@@ -348,7 +336,7 @@ const GenesisBlock = ({ onClose }: { onClose: () => void }) => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
-              <span className='text-primary mr-2.5'>&gt;</span>
+              <span className='text-primary mr-2.5 hidden sm:inline'>&gt;</span>
               {line}
             </motion.pre>
           ))}
@@ -380,6 +368,7 @@ export function EasterEggs() {
   const [showBlockchain, setShowBlockchain] = useState(false);
   const [showGenesisBlock, setShowGenesisBlock] = useState(false);
   const [showMatrixRain, setShowMatrixRain] = useState(false);
+  const [showTouchControls, setShowTouchControls] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -398,8 +387,148 @@ export function EasterEggs() {
     };
   }, []);
 
+  useEffect(() => {
+    const touchTimes: number[] = [];
+    const REQUIRED_TAPS = 3;
+    const TIME_WINDOW = 2000; // 3 seconds in milliseconds
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      // Check if touch is in bottom left corner (adjust size as needed)
+      const isInTriggerArea =
+        touch.clientY > window.innerHeight - 50 && touch.clientX < 50;
+
+      if (isInTriggerArea) {
+        const now = Date.now();
+        touchTimes.push(now);
+
+        // Only keep touches within the time window
+        while (touchTimes.length > 0 && now - touchTimes[0] > TIME_WINDOW) {
+          touchTimes.shift();
+        }
+
+        // Show controls if we have enough recent taps
+        if (touchTimes.length >= REQUIRED_TAPS) {
+          setShowTouchControls(true);
+          touchTimes.length = 0; // Reset counts
+        }
+      }
+    };
+
+    window.addEventListener('touchstart', handleTouchStart);
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+    };
+  }, []);
+
   return (
     <>
+      {showTouchControls && (
+        <div
+          className='fixed inset-0 flex items-center justify-center z-50 bg-background/80 backdrop-blur-md'
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className='bg-background/80 backdrop-blur-md p-4 rounded-lg shadow-lg relative'
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowTouchControls(false)}
+              className='absolute -top-8 -right-8 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90'
+            >
+              <X size={16} />
+            </button>
+            <div className='flex flex-col gap-6'>
+              <motion.button
+                className='relative px-6 py-3 bg-primary text-primary-foreground rounded-lg shadow-lg overflow-hidden'
+                whileTap={{ scale: 0.95 }}
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                onClick={() => {
+                  setShowBlockchain(true);
+                  setShowTouchControls(false);
+                }}
+              >
+                <motion.span
+                  className='absolute inset-0 bg-primary-foreground/10'
+                  animate={{
+                    x: ['0%', '100%'],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                />
+                <span className='relative text-lg font-bold'>Blockchain</span>
+              </motion.button>
+
+              <motion.button
+                className='relative px-6 py-3 bg-primary text-primary-foreground rounded-lg shadow-lg overflow-hidden'
+                whileTap={{ scale: 0.95 }}
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 300,
+                  damping: 20,
+                  delay: 0.1,
+                }}
+                onClick={() => {
+                  setShowGenesisBlock(true);
+                  setShowTouchControls(false);
+                }}
+              >
+                <motion.span
+                  className='absolute inset-0 bg-primary-foreground/10'
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0, 0.3, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+                <span className='relative text-lg font-bold'>Genesis</span>
+              </motion.button>
+
+              <motion.button
+                className='relative px-6 py-3 bg-primary text-primary-foreground rounded-lg shadow-lg overflow-hidden'
+                whileTap={{ scale: 0.95 }}
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 300,
+                  damping: 20,
+                  delay: 0.2,
+                }}
+                onClick={() => {
+                  setShowMatrixRain(true);
+                  setShowTouchControls(false);
+                }}
+              >
+                <motion.span
+                  className='absolute inset-0 bg-primary-foreground/10'
+                  animate={{
+                    y: ['0%', '100%'],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                />
+                <span className='relative text-lg font-bold'>Matrix</span>
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showBlockchain && (
         <BlockchainVisualization onClose={() => setShowBlockchain(false)} />
       )}
