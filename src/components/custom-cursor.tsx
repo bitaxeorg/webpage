@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 export function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  const scale = useSpring(1, {
+  const opacity = useSpring(0.7, {
     damping: 25,
     stiffness: 300,
   });
@@ -33,10 +33,10 @@ export function CustomCursor() {
 
       if (isClickable(target)) {
         document.body.style.cursor = '';
-        scale.set(1.5);
+        opacity.set(1);
       } else {
         document.body.style.cursor = 'none';
-        scale.set(1);
+        opacity.set(0.7);
       }
     };
 
@@ -48,7 +48,7 @@ export function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
       document.body.style.cursor = '';
     };
-  }, [cursorX, cursorY, scale]);
+  }, [cursorX, cursorY, opacity]);
 
   return (
     <motion.div
@@ -56,16 +56,16 @@ export function CustomCursor() {
       style={{
         left: cursorX,
         top: cursorY,
-        scale: scale,
+        opacity: opacity,
       }}
     >
       <div
         className='relative flex items-center justify-center'
         style={{ transform: 'translate(-50%, -50%)' }}
       >
-        <div className='absolute h-48 w-48 rounded-full bg-primary/20 blur-xl' />
-        <div className='h-8 w-8 rounded-full border-2 border-primary opacity-70' />
-        <div className='absolute h-2 w-2 rounded-full bg-primary' />
+        <div className='absolute h-48 w-48 rounded-full bg-primary/30 blur-xl' />
+        <div className='h-8 w-8 rounded-full border-2 border-primary' />
+        <div className='absolute h-2 w-2 rounded-full bg-black dark:bg-white' />
       </div>
     </motion.div>
   );

@@ -82,26 +82,32 @@ export function DonationsSection() {
           className='flex flex-col items-center gap-6'
           variants={scaleIn}
         >
-          <div className='flex flex-col md:flex-row justify-center gap-32'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24'>
             <div className='flex flex-col items-center gap-4'>
               <h2>On-Chain</h2>
               <QRCodeSVG
-                value={`bitcoin:${bitcoinAddress}`}
+                value={bitcoinAddress}
                 size={200}
                 level='H'
                 includeMargin={true}
-                className='rounded-lg'
+                className='rounded-lg dark:invert'
               />
+              <p className='text-sm text-muted-foreground break-all max-w-xs'>
+                {bitcoinAddress}
+              </p>
             </div>
             <div className='flex flex-col items-center gap-4'>
               <h2>Lightning</h2>
               <QRCodeSVG
-                value={`bitcoin:${bitcoinLightningAddress}`}
+                value={bitcoinLightningAddress}
                 size={200}
                 level='H'
                 includeMargin={true}
-                className='rounded-lg'
+                className='rounded-lg dark:invert'
               />
+              <p className='text-sm text-muted-foreground'>
+                {bitcoinLightningAddress}
+              </p>
             </div>
           </div>
           <p className='text-lg mb-4'>
