@@ -5,7 +5,7 @@ import { FileText, Folder, Home, Info } from 'lucide-react';
 
 export default function Nav() {
   const navItems = [
-    { id: 'top', label: 'Home', icon: Home },
+    { id: 'home', label: 'Home', icon: Home },
     { id: 'about', label: 'About', icon: Info },
     { id: 'projects', label: 'Projects', icon: Folder },
     { id: 'updates', label: 'Updates', icon: FileText },
@@ -19,9 +19,9 @@ export default function Nav() {
     e.preventDefault();
     if (id === 'discord') {
       window.open(DISCORD_INVITE_URL, '_blank');
+    } else if (id === 'home') {
+      window.location.href = '/';
     } else if (id === 'transparency') {
-      window.location.href = '/transparency';
-    } else if (id === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
