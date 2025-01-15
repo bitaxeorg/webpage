@@ -59,13 +59,26 @@ export function CustomCursor() {
         opacity: opacity,
       }}
     >
-      <div
-        className='relative flex items-center justify-center'
-        style={{ transform: 'translate(-50%, -50%)' }}
-      >
-        <div className='absolute h-48 w-48 rounded-full bg-primary/30 blur-xl' />
-        <div className='h-8 w-8 rounded-full border-2 border-primary' />
-        <div className='absolute h-2 w-2 rounded-full bg-black dark:bg-white' />
+      <div className='relative'>
+        <div
+          className='absolute h-48 w-48 blur-xl bg-primary/25 rounded-full'
+          style={{ transform: 'translate(-50%, -50%)' }}
+        />
+        <svg
+          width='32'
+          height='32'
+          viewBox='0 0 16 16'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+        >
+          <path
+            d='M1 1L7.5 14.5L9.5 8.5L15.5 6.5L1 1Z'
+            fill='currentColor'
+            stroke='currentColor'
+            strokeWidth='1'
+            className='text-primary'
+          />
+        </svg>
       </div>
     </motion.div>
   );
