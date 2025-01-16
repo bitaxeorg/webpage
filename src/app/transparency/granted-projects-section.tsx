@@ -10,14 +10,13 @@ import { fadeInUp, slideIn, staggerContainer } from '@/utils/animations';
 const projects = [
   {
     title: 'Bitaxe Web Flasher',
-    description:
-      'The Project Bitaxe-Web-Flasher by @WantClue got funded in btc.',
+    description: 'The Project Bitaxe-Web-Flasher got funded.',
     github: 'https://github.com/bitaxeorg/bitaxe-web-flasher',
   },
   {
     title: 'Eko-Miner',
     description:
-      'The Project Eko-miner by @phil31 got funded the ASIC chips for doing R&D and hopefully creating a new device.',
+      'The Project Eko-miner got funded the ASIC chips for doing R&D and hopefully creating a new device.',
   },
 ];
 
@@ -38,6 +37,15 @@ export function ProjectsSection() {
         >
           Our Granted Projects
         </motion.h2>
+        <motion.h2
+          className='text-4xl font-bold text-center mb-12'
+          variants={slideIn('up')}
+        >
+          Please note, for privacy reasons, specific amounts will not be
+          disclosed nor any personal identifiable information, that isn't
+          already disclosed by the developer.
+        </motion.h2>
+
         <motion.div
           className='grid md:grid-cols-3 gap-6'
           variants={staggerContainer}
