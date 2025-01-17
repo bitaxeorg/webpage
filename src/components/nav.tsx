@@ -37,36 +37,25 @@ export default function Nav() {
       animate={{ y: 0 }}
       transition={{ delay: 0.5 }}
     >
-      <div className='relative w-full max-w-full md:w-auto md:px-1 md:py-1 sm:px-1.5 sm:py-1.5 rounded-full bg-background/80 dark:bg-black/20 backdrop-blur-md border border-border'>
+      <div className='relative inline-flex rounded-full bg-background/80 dark:bg-black/20 backdrop-blur-md border border-border'>
         {/* Burger Menu Button - mobile */}
-        <div className='md:hidden w-full flex items-center justify-between px-4 py-2'>
-          <span className='text-sm font-medium text-foreground/90'>Menu</span>
-          <button
-            className='p-2 hover:bg-foreground/10 active:bg-foreground/20 rounded-full transition-colors'
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label='Toggle menu'
-          >
-            <Menu className='w-6 h-6' />
-          </button>
-        </div>
-
-        {/* Mobile Menu Backdrop */}
-        {isMenuOpen && (
-          <div
-            className='fixed inset-0 bg-black/80 z-10 md:hidden backdrop-blur-sm transition-opacity duration-200'
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
+        <button
+          className='md:hidden p-2.5 hover:bg-foreground/5 active:bg-foreground/10 rounded-full transition-colors'
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label='Toggle menu'
+        >
+          <Menu className='w-5 h-5 text-foreground/70' />
+        </button>
 
         {/* Mobile Menu */}
         <div
           className={`${
             isMenuOpen
-              ? 'translate-y-0 opacity-100'
-              : '-translate-y-4 opacity-0 pointer-events-none'
-          } md:hidden fixed top-[4.5rem] inset-x-4 bg-background/95 dark:bg-black/95 border border-border rounded-xl p-3 z-20 shadow-xl transition-all duration-200 ease-out`}
+              ? 'translate-y-1 opacity-100'
+              : '-translate-y-2 opacity-0 pointer-events-none'
+          } md:hidden absolute left-0 top-full min-w-[200px] bg-background/95 dark:bg-black/95 border border-border rounded-2xl py-2 z-20 shadow-xl transition-all duration-200 ease-out`}
         >
-          <ul className='flex flex-col'>
+          <ul className='flex flex-col py-1'>
             {navItems.map((item) => (
               <motion.li
                 key={item.id}
@@ -78,7 +67,7 @@ export default function Nav() {
                     handleClick(e, item.id);
                     setIsMenuOpen(false);
                   }}
-                  className='flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/10 active:bg-foreground/20 transition-colors cursor-pointer'
+                  className='flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-foreground/5 active:bg-foreground/10 transition-colors cursor-pointer'
                 >
                   {item.id === 'discord' ? (
                     <svg
@@ -99,7 +88,7 @@ export default function Nav() {
         </div>
 
         {/* Desktop Menu */}
-        <ul className='hidden md:flex items-center gap-0.5 sm:gap-1 flex-wrap justify-center'>
+        <ul className='hidden md:flex items-center gap-2 px-4 py-2'>
           {navItems.map((item) => (
             <motion.li
               key={item.id}
