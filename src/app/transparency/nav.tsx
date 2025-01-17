@@ -1,14 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileText, Home, Info } from 'lucide-react';
+import { Home, Info } from 'lucide-react';
 
 export default function Nav() {
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
     { id: 'projects', label: 'Grants', icon: Info },
     { id: 'info', label: 'Info', icon: Info },
-    { id: 'transparency', label: 'Transparency', icon: FileText },
     { id: 'discord', label: 'Discord', icon: 'discord' },
   ];
 

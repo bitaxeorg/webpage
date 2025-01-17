@@ -102,6 +102,8 @@ body {
   background: hsl(var(--primary) / 0.8);
 }
 
-* {
-  cursor: none !important;
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
 }

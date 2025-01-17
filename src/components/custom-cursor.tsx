@@ -11,7 +11,15 @@ export function CustomCursor() {
     stiffness: 300,
   });
 
+  const isTouchDevice =
+    typeof window !== 'undefined' &&
+    ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
   useEffect(() => {
+    if (isTouchDevice) {
+      return;
+    }
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -48,7 +56,12 @@ export function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
       document.body.style.cursor = '';
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorX, cursorY, opacity]);
+
+  if (isTouchDevice) {
+    return null;
+  }
 
   return (
     <motion.div
