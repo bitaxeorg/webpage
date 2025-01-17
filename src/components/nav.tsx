@@ -40,10 +40,11 @@ export default function Nav() {
       <div className='relative inline-flex rounded-full bg-background/80 dark:bg-black/20 backdrop-blur-md border border-border'>
         {/* Burger Menu Button - mobile */}
         <button
-          className='md:hidden p-2.5 hover:bg-foreground/5 active:bg-foreground/10 rounded-full transition-colors'
+          className='md:hidden p-2.5 hover:bg-foreground/5 active:bg-foreground/10 rounded-full transition-colors flex items-center gap-2'
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label='Toggle menu'
         >
+          <span className='text-sm font-medium text-foreground/90'>Menu</span>
           <Menu className='w-5 h-5 text-foreground/70' />
         </button>
 
@@ -53,7 +54,7 @@ export default function Nav() {
             isMenuOpen
               ? 'translate-y-1 opacity-100'
               : '-translate-y-2 opacity-0 pointer-events-none'
-          } md:hidden absolute left-0 top-full min-w-[200px] bg-background/95 dark:bg-black/95 border border-border rounded-2xl py-2 z-20 shadow-xl transition-all duration-200 ease-out`}
+          } md:hidden absolute -left-20 top-full min-w-[240px] bg-background/95 dark:bg-black/95 border border-border rounded-2xl py-2 z-20 shadow-xl transition-all duration-200 ease-out`}
         >
           <ul className='flex flex-col py-1'>
             {navItems.map((item) => (
