@@ -45,6 +45,11 @@ const projects = [
     description: 'A Nestjs and Typescript Bitcoin stratum mining server',
     github: 'https://github.com/benjamin-wilson/public-pool',
   },
+  {
+    title: 'NerdEko',
+    description: '12 BM1370 Chips on a single board with an average of 14Th/s',
+    github: 'https://github.com/phil31/NerdEKO-Gamma',
+  },
 ];
 
 export function ProjectsSection() {
