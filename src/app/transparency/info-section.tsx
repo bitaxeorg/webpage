@@ -17,13 +17,13 @@ export function InfoSection() {
           className='text-4xl font-bold text-center mb-12'
           variants={slideIn('up')}
         >
-          Where do Donations go?
+          Community
         </motion.h2>
         <motion.div
           className='max-w-3xl mx-auto text-center'
           variants={fadeInUp}
         >
-          <p className='text-lg mb-6'>
+          {/*<p className='text-lg mb-6'>
             Open Source Miners United is a decentralized global community
             advancing open source technologies in Bitcoin mining. Unlike
             traditional organizations, we operate independently of any company,
@@ -31,7 +31,7 @@ export function InfoSection() {
             donations, which fund our core infrastructure, support innovative
             grant projects, and enable the reverse engineering of new mining
             chips.
-          </p>
+          </p> */}
 
           <p className='text-lg mb-6'>
             Our community's achievements showcase the power of open
@@ -42,13 +42,13 @@ export function InfoSection() {
             more accessible and transparent.
           </p>
 
-          <p className='text-lg mb-6'>
+          {/*<p className='text-lg mb-6'>
             We maintain full transparency about how donations are used: from
             keeping our servers running and websites maintained, to funding
             promising grant applications and acquiring new mining equipment for
             reverse engineering. This openness ensures that every contribution
             directly advances open-source mining technology.
-          </p>
+          </p> */}
 
           <p className='text-lg mb-6'>
             Our community welcomes everyone passionate about decentralized
