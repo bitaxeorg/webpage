@@ -10,13 +10,27 @@ import { fadeInUp, slideIn, staggerContainer } from '@/utils/animations';
 const projects = [
   {
     title: 'Bitaxe Web Flasher',
-    description: 'The Project Bitaxe-Web-Flasher got funded.',
+    description:
+      'The Project Bitaxe-Web-Flasher got funded for creating an easy and reliable flashing tool.',
     github: 'https://github.com/bitaxeorg/bitaxe-web-flasher',
   },
   {
     title: 'Eko-Miner',
     description:
       'The Project Eko-miner got funded the ASIC chips for doing R&D and hopefully creating a new device.',
+    github: 'https://github.com/phil31/NerdEKO-Gamma',
+  },
+  {
+    title: 'Bitaxe-raw',
+    description:
+      'The Project bitaxe-raw got funded for creating a simple and minimalisitc usbserial Firmware.',
+    github: 'https://github.com/bitaxeorg/bitaxe-raw',
+  },
+  {
+    title: 'Bitaxe 3D-Prints',
+    description:
+      'The Project Bitaxe 3D-Prints got funded for creating a collection of all open source and compatible 3D Prints.',
+    github: 'https://github.com/bitaxeorg/bitaxe-3d-prints',
   },
 ];
 
